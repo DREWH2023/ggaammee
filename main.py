@@ -1,3 +1,5 @@
+game.splash("ZOMBIE DASH")
+info.set_score(0)
 zombie: Sprite = None
 maincharacter = sprites.create(img("""
         . . . . . . . . . . . . . . . . 
@@ -74,10 +76,11 @@ list2 = [img("""
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . .
     """)]
-speedlist = [50, 70, 30]
-turnlist = [50, 80, 30]
+speedlist = [51, 70, 30]
+turnlist = [50, 80, 40]
 maincharacter.set_bounce_on_wall(True)
-zombie.set_bounce_on_wall(True)
+effects.confetti.start_screen_effect()
+effects.confetti.end_screen_effect()
 
 def on_update_interval():
     global zombie
@@ -86,4 +89,7 @@ def on_update_interval():
         speedlist._pick_random(),
         turnlist._pick_random())
     zombie.set_position(randint(0, 160), randint(0, 120))
+    info.change_score_by(1)
 game.on_update_interval(5000, on_update_interval)
+
+
