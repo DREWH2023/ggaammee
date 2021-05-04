@@ -5,13 +5,24 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.currency, function (sprite, othe
     info.changeScoreBy(1)
     otherSprite.destroy()
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeLifeBy(1)
+    otherSprite.destroy()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
+    otherSprite.setKind(SpriteKind.Projectile)
+    pause(1000)
+    otherSprite.setKind(SpriteKind.Enemy)
 })
+let yumyum: Sprite = null
 let coin: Sprite = null
 let zombie : Sprite = null
 info.setLife(3)
 game.splash("ZOMBIE DASH")
+game.showLongText("AVOID zombies", DialogLayout.Bottom)
+game.showLongText("COLLECT coins", DialogLayout.Bottom)
+game.showLongText("REPLENISH health", DialogLayout.Bottom)
 info.setScore(0)
 let maincharacter = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -85,13 +96,13 @@ let list2 = [img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `]
-let speedlist = [51, 70, 30]
-let turnlist = [50, 80, 40]
-maincharacter.setBounceOnWall(false)
+let speedlist_EASY = [49, 54, 30]
+let turnlist_EASY = [50, 55, 40]
+maincharacter.setStayInScreen(true)
 tiles.setTilemap(tilemap`level2`)
 game.onUpdateInterval(5000, function () {
     zombie = sprites.create(list2._pickRandom(), SpriteKind.Enemy)
-    zombie.follow(maincharacter, speedlist._pickRandom(), turnlist._pickRandom())
+    zombie.follow(maincharacter, speedlist_EASY._pickRandom(), turnlist_EASY._pickRandom())
 zombie.setPosition(randint(0, 160), randint(0, 120))
 })
 game.onUpdateInterval(5000, function () {
@@ -134,5 +145,26 @@ game.onUpdateInterval(5000, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.currency)
-    coin.setPosition(randint(0, 160), randint(0, 90))
+    coin.setPosition(randint(0, 160), randint(25, 120))
+})
+game.onUpdateInterval(6500, function () {
+    yumyum = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . e e e . . 
+        . . . . . . . . . . e e e e e . 
+        . . . . . . . . . e e e e e e . 
+        . . . . . . . . e e e e e e . . 
+        . . . . . . . . e e e e e . . . 
+        . . . . . . . e e e e e e . . . 
+        . . . . . . 1 1 e e e . . . . . 
+        . . . . 1 1 1 1 . . . . . . . . 
+        . . . . . 1 1 . . . . . . . . . 
+        . . . . . . 1 . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Food)
+    yumyum.setPosition(randint(0, 160), randint(50, 120))
 })

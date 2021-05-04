@@ -25,7 +25,7 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 `, [myTiles.transparency16], TileScale.Sixteen);
             case "level2":
-            case "level2":return tiles.createTilemap(hex`100010000f1011010f1011010f1011010f101101040303030303030303030d0d0d0d0d02040303030303030303030d0d0d0d0d02040303030303030303030d0d0d0d0d02040303030303030303030d0d0d0d0d02040303030303030303030d0d0d0d0d020403030303030303030303030303030204030303030303030303030303030302040303030303030303030303030303020403030303030303030303030e030e02040303030303030e030e070505050a02040e0e0e07050505080806030303030204090505060e0e0e030303030303030b04030303030303030303030303030b0c040303030303030303030303030b0c0c100f10110f10110112110f1011121314`, img`
+            case "level2":return tiles.createTilemap(hex`100010000a0b0c010a0b0c010a0b0c010a0b0c0104030303030306030303030303030302040303030303070303030303030303020403030705050603030303030303030204050506030303030303030303030302040303030303030303030303030303020403030303030303030303030303030204030303030303030303030303030302040303030303030303030303030303020403030303030303030303030303030204030303030303030303030303030302040303030303030303030303030303020403030303030303030303030303030804030303030303030303030303030809040303030303030303030303030809090b0a0b0c0a0b0c010d0c0a0b0c0d0e0f`, img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
@@ -42,7 +42,7 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-`, [myTiles.transparency16,sprites.builtin.crowd3,sprites.castle.tilePath6,sprites.castle.tileGrass1,sprites.castle.tilePath4,sprites.swamp.swampTile7,sprites.swamp.swampTile9,sprites.swamp.swampTile6,sprites.swamp.swampTile13,sprites.swamp.swampTile4,sprites.swamp.swampTile5,sprites.castle.rock1,sprites.castle.rock2,sprites.castle.saplingPine,sprites.swamp.swampTile2,sprites.builtin.crowd0,sprites.builtin.crowd1,sprites.builtin.crowd2,sprites.builtin.crowd4,sprites.builtin.crowd5,sprites.builtin.crowd6], TileScale.Sixteen);
+`, [myTiles.transparency16,sprites.builtin.crowd3,sprites.castle.tilePath6,sprites.castle.tileGrass1,sprites.castle.tilePath4,sprites.swamp.swampTile7,sprites.swamp.swampTile9,sprites.swamp.swampTile13,sprites.castle.rock1,sprites.castle.rock2,sprites.builtin.crowd0,sprites.builtin.crowd1,sprites.builtin.crowd2,sprites.builtin.crowd4,sprites.builtin.crowd5,sprites.builtin.crowd6], TileScale.Sixteen);
         }
         return null;
     })
