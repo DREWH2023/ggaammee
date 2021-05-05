@@ -23,6 +23,7 @@ game.splash("ZOMBIE DASH")
 game.showLongText("AVOID zombies", DialogLayout.Bottom)
 game.showLongText("COLLECT coins", DialogLayout.Bottom)
 game.showLongText("REPLENISH health", DialogLayout.Bottom)
+pause(1000)
 info.setScore(0)
 let maincharacter = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -96,7 +97,59 @@ let list2 = [img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `]
-let speedlist_EASY = [49, 54, 30]
+let list3 = [img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . e e e . . 
+    . . . . . . . . . . e e e e e . 
+    . . . . . . . . . e e e e e e . 
+    . . . . . . . . e e e e e e . . 
+    . . . . . . . . e e e e e . . . 
+    . . . . . . . e e e e e e . . . 
+    . . . . . . 1 1 e e e . . . . . 
+    . . . . 1 1 1 1 . . . . . . . . 
+    . . . . . 1 1 . . . . . . . . . 
+    . . . . . . 1 . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . d d d d d d . . . . . 
+    . . . . d d d d d d d d . . . . 
+    . . . . d d d d d d d d . . . . 
+    . . . 7 7 7 7 7 7 7 7 7 7 . . . 
+    . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+    . . . e e e e e e e e e e . . . 
+    . . . 2 2 2 2 2 2 2 2 2 2 . . . 
+    . . . . d d d d d d d d . . . . 
+    . . . . d d d d d d d d . . . . 
+    . . . . . d d d d d d . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . e e e e e e . . . . . 
+    . . . . e e e e e f e e . . . . 
+    . . . e e f e e e e e e e . . . 
+    . . . e e e e e e e e e e . . . 
+    . . . e e e e e f e e f e . . . 
+    . . . e f e e e e e e e e . . . 
+    . . . e e e e e e e e e e . . . 
+    . . . e e f e e e e e e e . . . 
+    . . . . e e e e e f e e . . . . 
+    . . . . . e e e e e e . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `]
+let speedlist_EASY = [49, 51, 30]
 let turnlist_EASY = [50, 55, 40]
 maincharacter.setStayInScreen(true)
 tiles.setTilemap(tilemap`level2`)
@@ -148,23 +201,6 @@ game.onUpdateInterval(5000, function () {
     coin.setPosition(randint(0, 160), randint(25, 120))
 })
 game.onUpdateInterval(6500, function () {
-    yumyum = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . e e e . . 
-        . . . . . . . . . . e e e e e . 
-        . . . . . . . . . e e e e e e . 
-        . . . . . . . . e e e e e e . . 
-        . . . . . . . . e e e e e . . . 
-        . . . . . . . e e e e e e . . . 
-        . . . . . . 1 1 e e e . . . . . 
-        . . . . 1 1 1 1 . . . . . . . . 
-        . . . . . 1 1 . . . . . . . . . 
-        . . . . . . 1 . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Food)
+    yumyum = sprites.create(list3._pickRandom(), SpriteKind.Food)
     yumyum.setPosition(randint(0, 160), randint(50, 120))
 })
