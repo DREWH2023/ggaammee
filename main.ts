@@ -149,7 +149,7 @@ let list3 = [img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `]
-let speedlist_EASY = [49, 51, 30]
+let speedlist_EASY = [51, 49, 30]
 let turnlist_EASY = [50, 55, 40]
 maincharacter.setStayInScreen(true)
 tiles.setTilemap(tilemap`level2`)
