@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const currency = SpriteKind.create()
+    export const powerup = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.currency, function (sprite, otherSprite) {
     info.changeScoreBy(1)
