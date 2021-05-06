@@ -44,7 +44,6 @@ let maincharacter = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 controller.player1.moveSprite(maincharacter, 50, 50)
-scene.setBackgroundColor(6)
 let list2 = [img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -153,10 +152,11 @@ let speedlist_EASY = [51, 49, 30]
 let turnlist_EASY = [50, 55, 40]
 maincharacter.setStayInScreen(true)
 tiles.setTilemap(tilemap`level2`)
+scene.cameraFollowSprite(maincharacter)
 game.onUpdateInterval(5000, function () {
     zombie = sprites.create(list2._pickRandom(), SpriteKind.Enemy)
     zombie.follow(maincharacter, speedlist_EASY._pickRandom(), turnlist_EASY._pickRandom())
-zombie.setPosition(randint(0, 160), randint(0, 120))
+zombie.setPosition(randint(16, 240), randint(16, 240))
 })
 game.onUpdateInterval(5000, function () {
     coin = sprites.create(img`
@@ -177,7 +177,7 @@ game.onUpdateInterval(5000, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.currency)
-    coin.setPosition(randint(0, 160), randint(0, 90))
+    coin.setPosition(randint(16, 240), randint(16, 240))
 })
 game.onUpdateInterval(5000, function () {
     coin = sprites.create(img`
@@ -198,9 +198,12 @@ game.onUpdateInterval(5000, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.currency)
-    coin.setPosition(randint(0, 160), randint(25, 120))
+    coin.setPosition(randint(16, 240), randint(16, 240))
 })
 game.onUpdateInterval(6500, function () {
     yumyum = sprites.create(list3._pickRandom(), SpriteKind.Food)
-    yumyum.setPosition(randint(0, 160), randint(50, 120))
+    yumyum.setPosition(randint(16, 240), randint(16, 240))
+})
+forever(function () {
+    music.playMelody("C5 A G A C5 G A G ", 120)
 })
