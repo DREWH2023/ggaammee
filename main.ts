@@ -1,23 +1,62 @@
 namespace SpriteKind {
     export const currency = SpriteKind.create()
     export const powerup = SpriteKind.create()
+    export const speedup = SpriteKind.create()
+    export const safe = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.currency, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     otherSprite.destroy()
 })
+sprites.onOverlap(SpriteKind.safe, SpriteKind.currency, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    otherSprite.destroy()
+})
+sprites.onOverlap(SpriteKind.safe, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeLifeBy(1)
+    otherSprite.destroy()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.speedup, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    controller.moveSprite(maincharacter, 75, 75)
+    pause(3000)
+    controller.moveSprite(maincharacter, 50, 50)
+})
+sprites.onOverlap(SpriteKind.safe, SpriteKind.speedup, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    controller.moveSprite(maincharacter, 75, 75)
+    pause(3000)
+    controller.moveSprite(maincharacter, 50, 50)
+})
+function doSomething () {
+    randomnumber = randint(16, 240)
+    while (randomnumber >= 96 && randomnumber <= 114) {
+        randomnumber = randint(16, 240)
+    }
+    return randomnumber
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     info.changeLifeBy(1)
     otherSprite.destroy()
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.powerup, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    sprite.setKind(SpriteKind.safe)
+    pause(3000)
+    sprite.setKind(SpriteKind.Player)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
-    otherSprite.setKind(SpriteKind.Projectile)
+    sprite.setKind(SpriteKind.safe)
     pause(1000)
-    otherSprite.setKind(SpriteKind.Enemy)
+    sprite.setKind(SpriteKind.Player)
 })
 let yumyum: Sprite = null
+let shieldpwrup: Sprite = null
+let speedpwrup: Sprite = null
 let coin: Sprite = null
+let randomnumber = 0
+let maincharacter: Sprite = null
 let zombie : Sprite = null
 info.setLife(3)
 game.splash("ZOMBIE DASH")
@@ -26,7 +65,7 @@ game.showLongText("COLLECT coins", DialogLayout.Bottom)
 game.showLongText("REPLENISH health", DialogLayout.Bottom)
 pause(1000)
 info.setScore(0)
-let maincharacter = sprites.create(img`
+maincharacter = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -178,7 +217,7 @@ game.onUpdateInterval(5000, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.currency)
-    coin.setPosition(randint(16, 240), randint(16, 240))
+    coin.setPosition(doSomething(), randint(16, 240))
 })
 game.onUpdateInterval(5000, function () {
     coin = sprites.create(img`
@@ -199,11 +238,53 @@ game.onUpdateInterval(5000, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.currency)
-    coin.setPosition(randint(16, 240), randint(16, 240))
+    coin.setPosition(doSomething(), randint(16, 240))
+})
+game.onUpdateInterval(15000, function () {
+    speedpwrup = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . 1 1 . . . 
+        . . . . . . f f f f 1 1 . . . . 
+        . . . . . . f 8 8 1 1 . . . . . 
+        . . . . . . f 8 1 1 . . . . . . 
+        . . . . . . f 8 8 f . . . . . . 
+        . . . . . . f 8 8 f . . . . . . 
+        . . . . . . f 8 8 f . . . . . . 
+        . . f f f f f 8 8 f . . . . . . 
+        . . f 8 8 8 8 8 8 f . . . . . . 
+        . . f 8 8 8 8 8 8 f . . . . . . 
+        . . f f f f f f f f . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.speedup)
+    speedpwrup.setPosition(doSomething(), randint(16, 240))
+})
+game.onUpdateInterval(15000, function () {
+    shieldpwrup = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . f f . . . . . . . 
+        . . . . . f f 5 5 f f . . . . . 
+        . . f f f 5 5 1 1 5 5 f f f . . 
+        . . f 5 5 1 1 5 5 1 1 5 5 f . . 
+        . . f 5 1 5 5 f f 5 5 1 5 f . . 
+        . . f 5 1 f f f f f f 1 5 f . . 
+        . . f 5 1 5 5 f f 5 5 1 5 f . . 
+        . . . f 5 1 5 f f 5 1 5 f . . . 
+        . . . f 5 1 5 5 5 5 1 5 f . . . 
+        . . . . f 5 1 1 1 1 5 f . . . . 
+        . . . . . f 5 5 5 5 f . . . . . 
+        . . . . . . f f f f . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.powerup)
+    shieldpwrup.setPosition(doSomething(), randint(16, 240))
 })
 game.onUpdateInterval(6500, function () {
     yumyum = sprites.create(list3._pickRandom(), SpriteKind.Food)
-    yumyum.setPosition(randint(16, 240), randint(16, 240))
+    yumyum.setPosition(doSomething(), randint(16, 240))
 })
 forever(function () {
     music.playMelody("C5 A G A C5 G A G ", 120)
